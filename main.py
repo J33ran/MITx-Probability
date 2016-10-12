@@ -20,13 +20,37 @@ prob_c_s = np.array([[1/(2*i + 1) for j in C] for i in S])
 print('--- prob_c_s ---')
 print(prob_c_s)
 
-d = 2
-q = .5
+expected_C = np.zeros(S.size)
+
+for i, prob in enumerate(prob_c_s):
+    expected_C[i] = np.sum(C * prob)
+
+print ('--- expected_C ---')
+print(expected_C)
+
+d = 3
+q = .7
 
 prob_d_s = np.array([binomial(i, d, q) for i in S] )
 print('--- prob_d_s ---')
 print(prob_d_s)
 
+prob_s_d = prob_s * prob_d_s
+prob_s_d = prob_s_d/np.sum(prob_s_d)
+
+print('--- prob_s_d ---')
+print(prob_s_d)
+
+expected_C_D = expected_C *  prob_s_d
+print('--- expected_C_D ---')
+print(expected_C_D)
+
+expectation_C_D = np.sum(expected_C_D)
+print('--- expectation_C_D ---')
+print(expectation_C_D)
+
+exit(0)
+##################################################
 prob_c_and_d_and_s = np.zeros(prob_c_s.shape)
 
 for i, value in enumerate(prob_c_s):
