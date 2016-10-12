@@ -286,7 +286,9 @@ def compute_true_movie_rating_posterior_entropies(num_observations):
     #
     # END OF YOUR CODE FOR PART (g)
     # -------------------------------------------------------------------------
+    posteriors = infer_true_movie_ratings(num_observations)
 
+    posterior_entropies = np.array([compute_entropy(i) for i in posteriors])
     return posterior_entropies
 
 
@@ -330,6 +332,17 @@ def main():
     print(compute_entropy(distribution))
     print("Expected answer:")
     print(0.811278124459)
+
+    observations = np.arange(1, 200+1)
+
+    entropies =  [compute_true_movie_rating_posterior_entropies(i) for i in observations]
+    H_entropies = np.zero(entropies.size)
+
+    for entropy in entropies:
+        H_entropies = [ i * np.log2(1/i) if i != 0 else 0 for i in entropy]
+        
+    plt.plot(observations, H_entropies)
+    plt.show()
 
     #
     # END OF ERROR CHECKS
