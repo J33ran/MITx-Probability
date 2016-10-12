@@ -251,6 +251,9 @@ def compute_entropy(distribution):
     #
     # END OF YOUR CODE FOR PART (f)
     # -------------------------------------------------------------------------
+    
+    h_values = [i * (np.log2(1/i)) if i !=0 else 0 for i in distribution]
+    entropy = np.sum(h_values)
 
     return entropy
 
@@ -305,10 +308,6 @@ def main():
     print(compute_posterior(prior, likelihood, y))
     print("Expected answer:")
     print(np.array([[0.91986917, 0.08013083]]))
-
-    print("---")
-    infer_true_movie_ratings(-1)
-    return 0
 
     print("---")
     print("Entropy of fair coin flip")
