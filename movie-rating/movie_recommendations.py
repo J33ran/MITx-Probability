@@ -337,14 +337,20 @@ def main():
     print("Expected answer:")
     print(0.811278124459)
 
-    observations = np.arange(1, 200+1)
+    n = 200
+    observations = np.arange(1, n+1)
+    entropies =  np.array([compute_true_movie_rating_posterior_entropies(i) for i in observations])
 
-    entropies =  [compute_true_movie_rating_posterior_entropies(i) for i in observations]
-    H_entropies = np.zero(entropies.size)
+    # print("entropies ......")
+    # print(entropies.shape)
+    
+    H_entropies = np.zeros(entropies.shape[0])
 
-    for entropy in entropies:
-        H_entropies = [ i * np.log2(1/i) if i != 0 else 0 for i in entropy]
-        
+    for idx, entropy in enumerate(entropies):
+       values = [ -1.0 * i * np.log2(i) if i != 0 else 0 for i in entropy]
+       H_entropies[idx]  = np.sum(values)
+
+    print(H_entropies)    
     plt.plot(observations, H_entropies)
     plt.show()
 
