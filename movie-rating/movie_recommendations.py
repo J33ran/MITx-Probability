@@ -213,8 +213,8 @@ def infer_true_movie_ratings(num_observations=-1):
 
     movies_list = [movie_data_helper.get_movie_name(i) for i in top_movies]
 
-    print(movies_list)
-    print(len(movies_list))
+    # print(movies_list)
+    # print(len(movies_list))
 
     return posteriors, MAP_ratings
 
@@ -251,8 +251,11 @@ def compute_entropy(distribution):
     #
     # END OF YOUR CODE FOR PART (f)
     # -------------------------------------------------------------------------
+    h_values = np.zeros(distribution.size)
     
-    h_values = [i * (np.log2(1/i)) if i !=0 else 0 for i in distribution]
+    for i in distribution:
+        h_values[i] = -1.0 * i * np.log2(i) if i !=0 else 0
+
     entropy = np.sum(h_values)
 
     return entropy
@@ -286,8 +289,9 @@ def compute_true_movie_rating_posterior_entropies(num_observations):
     #
     # END OF YOUR CODE FOR PART (g)
     # -------------------------------------------------------------------------
-    posteriors = infer_true_movie_ratings(num_observations)
+    posteriors, MAP = infer_true_movie_ratings(num_observations)
 
+    print(posteriors)
     posterior_entropies = np.array([compute_entropy(i) for i in posteriors])
     return posterior_entropies
 
