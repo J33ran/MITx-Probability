@@ -4,6 +4,6 @@
     "version": "0.1.0",
     "command": "${config.python.pythonPath}",
     "isShellCommand": true,
-    "args": ["${workspaceRoot}/movie_recommendations.py"],
+    "args": ["${file}"],
     "showOutput": "always"
 }
